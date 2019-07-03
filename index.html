@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-nav></app-nav>
+        <app-view>
+            <app-sidebar>{{ number }}</app-sidebar>
+            <app-content>{{ ok? "YES" : "NO"}}</app-content>
+        </app-view>
+        <button v-bind:disabled="isButtonDisabled" @click="click">Button</button>
+        <div>
+            <p>frist name:{{ fristName }}</p>
+            <p>second name:{{ secondName }}</p>
+            <p>full name:{{ fullname }}</p>
+        </div>
+        <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+        <template v-if="ifMind">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+        <ul>
+            <li v-for="(one,two,three) in object">
+                {{three}}.{{two}}-{{one}}
+            </li>
+        </ul>
+        <ul>
+            <li v-for="(item,index) in array">
+                {{index}}.{{item.message}}
+            </li>
+        </ul>
+        <span v-for="item in evenNumber"> {{ item }} </span>
+        <span v-for="item in 10"> {{ item }} </span>
+        <ul>
+            <li v-for="item in todos" v-if="item.isComplete">
+                {{ item.todo }}
+            </li>
+        </ul>
+        <input type="text" v-on:keyup.enter="submit"/>
+        <div></div>
+        <input type="text" v-model="msg" placeholder="edit me"/>
+        <p>Message is :{{msg}}</p>
+        <input
+            type="checkbox"
+            v-model="toggle"
+            true-value="yes"
+            false-value="no">{{toggle}}
+        <input type="radio" v-model="pick" v-bind:value="a">{{a}}__{{pick}}
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                a:"la",
+                pick:"",
+                msg:"",
+                isButtonDisabled:"disabled",
+                number :1,
+                ok:true,
+                fristName:"feng",
+                secondName:"jialue",
+                ifMind:true,
+                toggle:"",
+                object:{
+                    title:"wo de wu tai",
+                    author:"fengjialue",
+                    content:"I'm the king of world"
+                },
+                array:[
+                    { message : "foo" },
+                    { message : "bar" }
+                ],
+                intArr:[3,5,2,6,4,5,3,7,8],
+                todos:[
+                    { todo:"a",isComplete:false },{ todo:"b",isComplete:true },{ todo:"c",isComplete:false },
+                    { todo:"d",isComplete:false },{ todo:"e",isComplete:true },{ todo:"f",isComplete:true }
+                ]
+            },
+            methods:{
+                click(){
+                    console.log("haha");
+                },
+                submit(){
+                    alert("keyup");
+                }
+            },
+            computed:{
+                fullname:{
+                    get:function(){
+                        return this.fristName + this.secondName;
+                    },
+                    set:function(newVal){
+                        let name = newVal.split(' ');
+                        console.log(name);
+                        this.fristName = name[0];
+                        this.secondName = name[1];
+                    }
+                },
+                evenNumber:function(){
+                    return this.intArr.filter(
+                        function(number){
+                            return number % 2 === 0
+                        }
+                    )
+                }
+            }
+        })
+        var tmp = new Date();
+        function f(){
+            console.log(tmp);
+            if(false){
+                var tmp = "hello world"
+            }
+        }
+        f()
+    </script>
+</body>
+</html>

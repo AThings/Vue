@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"><!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <ul id="app">
+        <li v-for = 'item in arr'>
+            <span>{{item.id}}-{{item.name}}</span>
+        </li>
+        <div>
+            {{athings}}
+        </div>
+        <br>
+        <div>
+            {{repo}}
+        </div>
+        <current-user><template v-slot:default="slotProps">
+                {{ slotProps.user.firstName }}
+              </template></current-user>
+    </ul>
+
+    <script>
+        Vue.component('current-user',{
+            data(){
+                return {
+                    user:{
+                        firstname:"jialue1",
+                        lastname:"feng1"
+                    }
+                }
+            },
+            template:'<span><slot v-bind:user="user">{{ user.lastName }}</slot></span>'
+        })
+        new Vue({
+            el:'#app',
+            data:{
+                arr:[],
+                athings:{},
+                repo:{},
+                user:{
+                    firstname:"jialue2",
+                    lastname:"feng2"
+                }
+            },
+            created(){
+                // fetch('https://api.github.com/users/AThings/repos').then(response=>{
+                //     return response.json()
+                // }).then(data => {
+                //         this.arr = data
+                //         window.console.log(this.arr)
+                // }).catch(err=>{
+                //     window.console.log(err)
+                // })
+                // fetch('https://api.github.com/users/AThings').then(response=>{
+                //     return response.json()
+                // }).then(data=>{
+                //     this.athings = data
+                // })
+                // fetch('https://api.github.com/repos/AThings/web').then(response=>{
+                //     return response.json()
+                // }).then(data=>{
+                //     this.repo = data
+                // })
+                // this.$message({
+                //     message: '❤atago❤',
+                //     type: 'success',
+                //     center:true
+                // })
+            }
+        })
+    </script>
+</body>
+</html>
